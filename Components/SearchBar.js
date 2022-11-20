@@ -1,6 +1,6 @@
-import * as React from "react";
-import { View } from "react-native";
-import { Searchbar } from "react-native-paper";
+import * as React from 'react';
+import { View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
 
 const SearchBar = () => {
   return (

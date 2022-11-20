@@ -1,8 +1,8 @@
-import React, {Component} from "react";
-import CustomCard from "../Components/Card";
-import SearchBar from "../Components/SearchBar";
-import medication from "../CustomProperties/Medication";
-import { StyleSheet, ScrollView, Text, Button, Modal, View } from "react-native";
+import React, { Component } from 'react';
+import CustomCard from '../Components/Card';
+import SearchBar from '../Components/SearchBar';
+import medication from '../CustomProperties/Medication';
+import { StyleSheet, ScrollView, Text, Button, Modal, View } from 'react-native';
 
 class CatalogRoute extends Component {
   constructor(props) {
@@ -11,18 +11,18 @@ class CatalogRoute extends Component {
   }
 
   showModal(entity) {
-    this.setState({ entity: entity, visible: true })
+    this.setState({ entity: entity, visible: true });
   }
 
   hideModal() {
-    this.setState({ entity: null, visible: false })
+    this.setState({ entity: null, visible: false });
   }
 
   render() {
     return (
       <React.Fragment>
         <SearchBar />
-        <ScrollView style={{ marginBottom: 15 }} >
+        <ScrollView style={{ marginBottom: 15 }}>
           {medication.map((entity) => (
             <CustomCard
               onClick={() => this.showModal(entity)}
@@ -36,31 +36,29 @@ class CatalogRoute extends Component {
             />
           ))}
         </ScrollView>
-        <Modal transparent={false} animationType={"slide"} visible={this.state.visible}>
-              <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
-                  <View style={styles.modalInsideView}>
-                      {this.state.entity && 
-                        <Text>{this.state.entity.title}</Text>
-                      }
-                      <Button title="Hide Modal" style={{backgroundColor: "primary"}} onPress={this.hideModal.bind(this)}/>
-                  </View>
-              </View>
-          </Modal>
-      </React.Fragment>  
+        <Modal transparent={false} animationType={'slide'} visible={this.state.visible}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={styles.modalInsideView}>
+              {this.state.entity && <Text>{this.state.entity.title}</Text>}
+              <Button title="Hide Modal" style={{ backgroundColor: 'primary' }} onPress={this.hideModal.bind(this)} />
+            </View>
+          </View>
+        </Modal>
+      </React.Fragment>
     );
   }
-};
+}
 
 export default CatalogRoute;
 
 const styles = StyleSheet.create({
-  MainContainer :{
-    flex:1,
+  MainContainer: {
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  modalInsideView:{
+  modalInsideView: {
     justifyContent: 'center',
-    alignItems: 'center', 
-  },
+    alignItems: 'center'
+  }
 });
