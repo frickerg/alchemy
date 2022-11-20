@@ -1,8 +1,11 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Linking } from "react-native";
 import { Card, Text, Paragraph } from "react-native-paper";
 
 const CustomCard = (props) => {
+  // generate uri for atc linking
+  const link = "https://compendium.ch/register/atc/" + props.atc.substring(0, props.atc.indexOf(' '));
+
   return (
     <React.Fragment>
       <Card style={styles.container}>
@@ -12,7 +15,9 @@ const CustomCard = (props) => {
           </Paragraph>
         </Card.Content>
         <Card.Content>
-          <Paragraph style={{color:"#1bbc9c"}}>{props.atc}</Paragraph>
+          <Paragraph style={{color:"#1bbc9c"}} onPress={() => {
+              Linking.openURL(link);
+            }}>{props.atc}</Paragraph>
           <Paragraph style={styles.subtitle}>{props.composition.substring(0, 100)}</Paragraph>
         </Card.Content>
         { props.uri && // only show image if one is provided
