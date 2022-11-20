@@ -1,9 +1,11 @@
+import { Appbar, Button, Card, List, Searchbar, Snackbar } from 'react-native-paper';
+import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react';
-import CustomCard from '../Components/Card';
+
 import ArticleDescription from '../Components/ArticleDescription';
+import CustomCard from '../Components/Card';
 import medication from '../CustomProperties/Medication';
-import { Button, List, Card, Appbar, Snackbar, Searchbar } from 'react-native-paper';
-import { StyleSheet, ScrollView, View, Text, Modal } from 'react-native';
+import theme from '../CustomProperties/Theme';
 
 class CatalogRoute extends Component {
   constructor(props) {
@@ -11,13 +13,13 @@ class CatalogRoute extends Component {
     this.state = { entity: null, visible: false, counter: 1, snackbar: false, searchString: '' };
   }
 
-  plus() {
+  plusCounter() {
     if (this.state.counter < this.state.entity.stock) {
       this.setState({ counter: this.state.counter + 1 });
     }
   }
 
-  minus() {
+  minusCounter() {
     if (this.state.counter > 0) {
       this.setState({ counter: this.state.counter - 1 });
     }
@@ -62,28 +64,30 @@ class CatalogRoute extends Component {
           {medication
             .filter((entity) => {
               const query = this.state.searchString.toLowerCase();
-              return entity.title.toLowerCase().includes(this.state.searchString.toLowerCase()) ||
+              return (
+                entity.title.toLowerCase().includes(this.state.searchString.toLowerCase()) ||
                 entity.manufacturer.toLowerCase().includes(query) ||
                 entity.characteristics.toLowerCase().includes(query) ||
                 entity.composition.toLowerCase().includes(query) ||
                 entity.therapy.toLowerCase().includes(query) ||
-                (entity.indication + "").toLowerCase().includes(query);
+                (entity.indication + '').toLowerCase().includes(query)
+              );
             })
             .map((entity) => (
               <CustomCard
                 onClick={() => this.showModal(entity)}
                 key={entity.id}
-              title={entity.title}
-              manufacturer={entity.manufacturer}
-              atc={entity.atc}
-              composition={entity.composition}
-              uri={entity.uri}
-              stock={entity.stock}
-            />
-          ))}
+                title={entity.title}
+                manufacturer={entity.manufacturer}
+                atc={entity.atc}
+                composition={entity.composition}
+                uri={entity.uri}
+                stock={entity.stock}
+              />
+            ))}
         </ScrollView>
         <Snackbar
-          style={{ borderRadius: 5, backgroundColor: '#455A64' }}
+          style={styles.snackbar}
           visible={this.state.snackbarVisible}
           onDismiss={() => this.handleDismissSnackbar()}>
           Deine Bestellung war erfolgreich. Die Spitalapotheke meldet sich bei dir, sobald die Medikation für deine
@@ -96,13 +100,13 @@ class CatalogRoute extends Component {
             <Appbar.Content title="Zurück" />
           </Appbar.Header>
           {this.state.entity && (
-            <ScrollView style={{ flex: 1, padding: 20 }}>
+            <ScrollView style={styles.paddedFlexContainer}>
               <Text style={{ marginHorizontal: 10, fontWeight: 'bold', fontSize: 28 }}>{this.state.entity.title}</Text>
-              <Text style={{ marginHorizontal: 10, fontStyle: 'italic', color: 'gray' }}>
+              <Text style={{ marginHorizontal: 10, fontStyle: 'italic', color: theme.colors.subtitle }}>
                 {this.state.entity.manufacturer}
               </Text>
               {this.state.entity.uri && ( // only show image if one is provided
-                <Card style={{ padding: 20 }} elevation={0}>
+                <Card style={styles.paddedFlexContainer} elevation={0}>
                   <Card.Cover style={styles.img} source={{ uri: this.state.entity.uri }} resizeMode={'contain'} />
                 </Card>
               )}
@@ -117,22 +121,12 @@ class CatalogRoute extends Component {
               </List.Section>
             </ScrollView>
           )}
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderColor: 'white',
-              borderTopColor: 'silver',
-              marginTop: 20,
-              borderWidth: 1,
-              padding: 5
-            }}>
-            <Button mode="text" labelStyle={{ fontSize: 32, fontWeight: 'bold' }} onPress={this.minus.bind(this)}>
+          <View style={styles.footerView}>
+            <Button mode="text" labelStyle={styles.counterButtonLabel} onPress={this.minusCounter.bind(this)}>
               &#65293;
             </Button>
             <Text style={{ fontSize: 28, fontWeight: 'bold', paddingHorizontal: 45 }}>{this.state.counter}</Text>
-            <Button mode="text" labelStyle={{ fontSize: 32, fontWeight: 'bold' }} onPress={this.plus.bind(this)}>
+            <Button mode="text" labelStyle={styles.counterButtonLabel} onPress={this.plusCounter.bind(this)}>
               &#65291;
             </Button>
           </View>
@@ -155,18 +149,27 @@ class CatalogRoute extends Component {
 export default CatalogRoute;
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'left'
-  },
   img: {
     width: '100%',
     backgroundColor: 'white'
   },
-  modalInsideView: {
-    flex: 1,
+  snackbar: {
+    borderRadius: 5,
+    backgroundColor: '#455A64'
+  },
+  footerView: {
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'left'
+    borderColor: 'white',
+    borderTopColor: 'silver',
+    marginTop: 20,
+    borderWidth: 1,
+    padding: 5
+  },
+  paddedFlexContainer: { flex: 1, padding: 20 },
+  counterButtonLabel: {
+    fontSize: 32,
+    fontWeight: 'bold'
   }
 });

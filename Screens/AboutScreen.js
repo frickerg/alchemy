@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { Card, Avatar, Title } from 'react-native-paper';
-import { StyleSheet, Text, ScrollView } from 'react-native';
+
+import { Avatar, Card, Title } from 'react-native-paper';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 
 const AboutRoute = () => (
   <ScrollView>
-    <Card style={{ margin: 20, padding: 10 }}>
+    <Card style={styles.card}>
       <Card.Content style={{ alignItems: 'center' }}>
         <Avatar.Image size={124} source={require('../assets/portrait.jpg')} style={{ marginBottom: 10 }} />
-        <Title style={styles.text}>Hey! Ich heisse Guillaume</Title>
+        <Title style={{ padding: 10 }}>Hey! Ich heisse Guillaume</Title>
         <Text style={styles.text}>
           Ich habe dieses Projekt innerhalb von 24h aufgesetzt, konzipiert, designt und mit React Native umgesetzt.
           Einerseits möchte ich mit dieser App zeigen, was ich auf dem Kasten habe und möchte den Moment auch nutzen,
@@ -33,5 +34,6 @@ const styles = StyleSheet.create({
   text: {
     padding: 5,
     textAlign: 'justify'
-  }
+  },
+  card: { margin: 20, padding: 10 }
 });

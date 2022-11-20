@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { StyleSheet, Linking } from 'react-native';
-import { Card, Text, Paragraph } from 'react-native-paper';
+
+import { Card, Paragraph, Text } from 'react-native-paper';
+import { Linking, StyleSheet } from 'react-native';
+
 import theme from '../CustomProperties/Theme';
 
 const CustomCard = (props) => {
@@ -55,16 +57,12 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     alignSelf: 'center'
   },
-  contentStart: {
-    flexDirection: 'row',
-    alignItems: 'flex-start'
-  },
   contentEnd: {
     flex: 1
   },
   subtitle: {
     fontStyle: 'italic',
-    color: 'gray'
+    color: theme.colors.subtitle
   },
   stock: {
     paddingVertical: 10,

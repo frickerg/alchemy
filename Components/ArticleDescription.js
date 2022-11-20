@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import { List } from 'react-native-paper';
+import theme from '../CustomProperties/Theme';
 
 const ArticleDescription = (props) => {
   const [expanded, setExpanded] = React.useState(true);
@@ -13,7 +15,11 @@ const ArticleDescription = (props) => {
         onPress={handlePress}
         titleStyle={{ fontWeight: 'bold' }}
         style={{ backgroundColor: 'white' }}>
-        <List.Item title={props.value} titleNumberOfLines={6} titleStyle={{ color: 'gray', fontStyle: 'italic' }} />
+        <List.Item
+          title={props.value}
+          titleNumberOfLines={6}
+          titleStyle={{ color: theme.colors.subtitle, fontStyle: 'italic' }}
+        />
       </List.Accordion>
     );
   }
