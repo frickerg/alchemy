@@ -43,7 +43,7 @@ class CatalogRoute extends Component {
     return (
       <React.Fragment>
         <SearchBar />
-        <ScrollView style={{ marginBottom: 15 }}>
+        <ScrollView style={{ paddingBottom: 15 }}>
           {medication.map((entity) => (
             <CustomCard
               onClick={() => this.showModal(entity)}
@@ -74,27 +74,27 @@ class CatalogRoute extends Component {
                 </Card>
               )}
               <List.Section style={{ width: '100%' }}>
-                {this.state.entity.description && (
-                  <ArticleDescription title="Beschreibung" value={this.state.entity.description} />
-                )}
-                {this.state.entity.characteristics && (
-                  <ArticleDescription title="Charakteristika" value={this.state.entity.characteristics} />
-                )}
-                {this.state.entity.composition && (
-                  <ArticleDescription title="Zusammensetzung" value={this.state.entity.composition} />
-                )}
-                {this.state.entity.therapy && <ArticleDescription title="Therapie" value={this.state.entity.therapy} />}
-                {this.state.entity.indication && (
-                  <ArticleDescription title="Indikation" value={this.state.entity.indication} />
-                )}
-                {this.state.entity.dosage && <ArticleDescription title="Dosierung" value={this.state.entity.dosage} />}
-                {this.state.entity.contraindication && (
-                  <ArticleDescription title="Kontraindikation" value={this.state.entity.contraindication} />
-                )}
+                <ArticleDescription title="Beschreibung" value={this.state.entity.description} />
+                <ArticleDescription title="Charakteristika" value={this.state.entity.characteristics} />
+                <ArticleDescription title="Zusammensetzung" value={this.state.entity.composition} />
+                <ArticleDescription title="Therapie" value={this.state.entity.therapy} />
+                <ArticleDescription title="Indikation" value={this.state.entity.indication} />
+                <ArticleDescription title="Dosierung" value={this.state.entity.dosage} />
+                <ArticleDescription title="Kontraindikation" value={this.state.entity.contraindication} />
               </List.Section>
             </ScrollView>
           )}
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderColor: 'white',
+              borderTopColor: 'silver',
+              marginTop: 20,
+              borderWidth: 1,
+              padding: 5
+            }}>
             <Button mode="text" labelStyle={{ fontSize: 32, fontWeight: 'bold' }} onPress={this.minus.bind(this)}>
               &#65293;
             </Button>
@@ -103,11 +103,11 @@ class CatalogRoute extends Component {
               &#65291;
             </Button>
           </View>
-          <View style={{ margin: 20, marginTop: 15 }}>
+          <View style={{ margin: 20, marginTop: 0 }}>
             <Button
               mode="contained"
               disabled={this.state.counter == 0}
-              labelStyle={{ color: 'white', fontSize: 18 }}
+              labelStyle={{ color: 'white' }}
               style={{ padding: 10, textColor: 'white' }}
               onPress={this.placeOrder.bind(this)}>
               Jetzt bestellen

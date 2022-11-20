@@ -5,7 +5,8 @@ const theme = {
   roundness: 30,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#1bbc9c'
+    primary: '#1bbc9c',
+    light: '#bbebe1'
   }
 };
 

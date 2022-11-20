@@ -30,7 +30,9 @@ const CustomCard = (props) => {
         )}
         <Card.Actions>
           <Card.Content style={styles.contentEnd}>
-            <Text style={styles.stock}>{props.stock > 0 ? props.stock : 'nicht'} an Lager</Text>
+            <Text style={[styles.stock, props.stock > 0 ? styles.stockActive : styles.stockOutOfStock]}>
+              {props.stock > 0 ? props.stock : 'nicht'} an Lager
+            </Text>
           </Card.Content>
         </Card.Actions>
       </Card>
@@ -66,6 +68,13 @@ const styles = StyleSheet.create({
   },
   stock: {
     paddingVertical: 10,
-    textAlign: 'right'
+    borderRadius: 20,
+    textAlign: 'center'
+  },
+  stockActive: {
+    backgroundColor: theme.colors.light
+  },
+  stockOutOfStock: {
+    backgroundColor: 'whitesmoke'
   }
 });
