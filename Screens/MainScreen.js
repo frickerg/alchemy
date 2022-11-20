@@ -7,9 +7,13 @@ import { BottomNavigation } from 'react-native-paper';
 const Screen = () => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'catalog', title: 'Katalog', icon: 'format-list-bulleted', color: '#3F51B5' },
-    { key: 'orders', title: 'Bestellungen', icon: 'pill', color: '#009688' },
-    { key: 'about', title: 'Impressum', icon: 'account', color: '#795548' }
+    {
+      key: 'catalog',
+      title: 'Katalog',
+      icon: 'format-list-bulleted'
+    },
+    { key: 'orders', title: 'Bestellungen', icon: 'pill' },
+    { key: 'about', title: 'Impressum', icon: 'account' }
   ]);
 
   const renderScene = BottomNavigation.SceneMap({

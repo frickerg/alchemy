@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Linking } from 'react-native';
 import { Card, Text, Paragraph } from 'react-native-paper';
+import theme from '../CustomProperties/Theme';
 
 const CustomCard = (props) => {
   // generate uri for atc linking
@@ -11,14 +12,12 @@ const CustomCard = (props) => {
       <Card style={styles.container} onPress={props.onClick}>
         <Card.Content style={{ flexDirection: 'row' }}>
           <Paragraph style={{ marginTop: 15 }}>
-            <Text variant="displayLarge" style={{ fontWeight: 'bold', fontSize: 20 }}>
-              {props.title}
-            </Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{props.title}</Text>
           </Paragraph>
         </Card.Content>
         <Card.Content>
           <Paragraph
-            style={{ color: '#1bbc9c' }}
+            style={{ color: theme.colors.primary }}
             onPress={() => {
               Linking.openURL(link);
             }}>
