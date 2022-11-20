@@ -3,13 +3,13 @@ import CustomCard from '../Components/Card';
 import SearchBar from '../Components/SearchBar';
 import ArticleDescription from '../Components/ArticleDescription';
 import medication from '../CustomProperties/Medication';
-import { Button, List, Card, Appbar } from 'react-native-paper';
+import { Button, List, Card, Appbar, Snackbar } from 'react-native-paper';
 import { StyleSheet, ScrollView, View, Text, Modal } from 'react-native';
 
 class CatalogRoute extends Component {
   constructor(props) {
     super(props);
-    this.state = { entity: null, visible: false, counter: 1 };
+    this.state = { entity: null, visible: false, counter: 1, snackbar: false };
   }
 
   plus() {
@@ -31,13 +31,19 @@ class CatalogRoute extends Component {
   placeOrder() {
     let updatedEntity = this.state.entity;
     updatedEntity.stock = this.state.entity.stock - this.state.counter;
-    this.setState({ entity: updatedEntity });
+    this.setState({ entity: updatedEntity, snackbarVisible: true });
     this.hideModal();
   }
 
   hideModal() {
     this.setState({ entity: null, visible: false, counter: 1 });
   }
+
+  handleDismissSnackbar = () => {
+    this.setState({
+      snackbarVisible: false
+    });
+  };
 
   render() {
     return (
@@ -57,6 +63,14 @@ class CatalogRoute extends Component {
             />
           ))}
         </ScrollView>
+        <Snackbar
+          style={{ borderRadius: 5, backgroundColor: '#455A64' }}
+          visible={this.state.snackbarVisible}
+          onDismiss={() => this.handleDismissSnackbar()}>
+          Deine Bestellung war erfolgreich. Die Spitalapotheke meldet sich bei dir, sobald die Medikation für deine
+          Abteilung zur Abholung bereitsteht.
+        </Snackbar>
+
         <Modal transparent={false} animationType={'slide'} visible={this.state.visible}>
           <Appbar.Header>
             <Appbar.BackAction onPress={this.hideModal.bind(this)} />
