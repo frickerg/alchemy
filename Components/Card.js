@@ -8,7 +8,7 @@ const CustomCard = (props) => {
 
   return (
     <React.Fragment>
-      <Card style={styles.container}>
+      <Card style={styles.container} onPress={props.onClick}>
         <Card.Content style={{ flexDirection: "row" }}>
           <Paragraph style={{ marginTop: 15 }}>
             <Text variant="displayLarge" style={{ fontWeight: "bold", fontSize: 20 }}>{props.title}</Text>
@@ -28,7 +28,6 @@ const CustomCard = (props) => {
             <Text style={styles.stock}>{ props.stock > 0 ? props.stock : "nicht" } an Lager</Text>
           </Card.Content>
         </Card.Actions>
-
       </Card>
     </React.Fragment>
   );
