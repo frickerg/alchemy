@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import CustomCard from '../Components/Card';
-import SearchBar from '../Components/SearchBar';
 import ArticleDescription from '../Components/ArticleDescription';
 import medication from '../CustomProperties/Medication';
-import { Button, List, Card, Appbar, Snackbar } from 'react-native-paper';
+import { Button, List, Card, Appbar, Snackbar, Searchbar } from 'react-native-paper';
 import { StyleSheet, ScrollView, View, Text, Modal } from 'react-native';
 
 class CatalogRoute extends Component {
   constructor(props) {
     super(props);
-    this.state = { entity: null, visible: false, counter: 1, snackbar: false };
+    this.state = { entity: null, visible: false, counter: 1, snackbar: false, searchString: '' };
   }
 
   plus() {
@@ -39,6 +38,10 @@ class CatalogRoute extends Component {
     this.setState({ entity: null, visible: false, counter: 1 });
   }
 
+  handleSearch = (input) => {
+    this.setState({ searchString: input });
+  };
+
   handleDismissSnackbar = () => {
     this.setState({
       snackbarVisible: false
@@ -48,12 +51,28 @@ class CatalogRoute extends Component {
   render() {
     return (
       <React.Fragment>
-        <SearchBar />
+        <View>
+          <Searchbar
+            style={{ margin: 15 }}
+            onChangeText={(input) => this.handleSearch(input)}
+            placeholder="Medikation suchen..."
+          />
+        </View>
         <ScrollView style={{ paddingBottom: 15 }}>
-          {medication.map((entity) => (
-            <CustomCard
-              onClick={() => this.showModal(entity)}
-              key={entity.id}
+          {medication
+            .filter((entity) => {
+              const query = this.state.searchString.toLowerCase();
+              return entity.title.toLowerCase().includes(this.state.searchString.toLowerCase()) ||
+                entity.manufacturer.toLowerCase().includes(query) ||
+                entity.characteristics.toLowerCase().includes(query) ||
+                entity.composition.toLowerCase().includes(query) ||
+                entity.therapy.toLowerCase().includes(query) ||
+                (entity.indication + "").toLowerCase().includes(query);
+            })
+            .map((entity) => (
+              <CustomCard
+                onClick={() => this.showModal(entity)}
+                key={entity.id}
               title={entity.title}
               manufacturer={entity.manufacturer}
               atc={entity.atc}
